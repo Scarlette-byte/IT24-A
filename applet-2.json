@@ -5,7 +5,10 @@
         "message" : "Kihare Selecta ice cream"
     },
       
-    {
+    {  
+        "latitude":8.359237,
+        "longitude" :124.867941,
+        "message" : "Manolo fortich Seventh day adventist church"
         
     },
 
