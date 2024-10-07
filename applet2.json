@@ -1,0 +1,18 @@
+[
+    {
+        "latitude":8.367389,
+        "longitude": 124.864161,
+        "message": "Manolo Fortich police Station"
+    },
+    {
+        "latitude": 8.367373,
+        "longitude": 124.864644,
+        "message": "Postal bank"
+        
+    },
+    {
+        "latitude": 8.367561,
+        "longitude":124.863478,
+        "message": "Rural bank"
+    }
+]

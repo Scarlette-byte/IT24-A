@@ -5,13 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <title>Document</title>
-   <style>
-    .container {
-        margin-top: 5rem;
-        margin-left: 8rem;
-    }
-   </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script><title>Document</title>
+
+       <style>
+        body{
+            background-color: peachpuff;
+        }
+        .container{
+            margin-top: 4rem;
+            margin-left: 7.5rem;
+        }
+        .card {
+            background-color: beige;
+        }
+        .applet-container{
+            margin-top: 1rem;
+            margin-left: 2rem;
+            width: 90%;
+        }
+
+        #map {
+            height: 600px;
+        }
+        
+    </style>
 </head>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-image: url(Assets/images/B1.jpg); background-size: cover;">
@@ -24,17 +42,17 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">features</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                 Applet
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Leaflet Map</a></li>
+                  <li><a class="dropdown-item" href="applet2.html">Leaflet Map</a></li>
                   <li><a class="dropdown-item" href="#">Button logger</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -48,47 +66,55 @@
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-          </div class="container">
-        </div class="row">
       </nav>
-
 <body>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="Assets/images/B1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card 1</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="Assets/images/B1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card 2</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="Assets/images/B1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card 3</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        </div>
+    <div class="applet-container">
+        <h3>Leaflet Map Basics</h3>
+        <div id="map"></div>
+      
     </div>
-    
+    <script>
+        class LeafletMap {
+        
+            constructor(containerId, center, zoom) {
+                this.map = L.map(containerId).setView(center, zoom);
+                this.initTileLayer();
+            }
+            initTileLayer() {
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(this.map);
+    }
+    addMarker(lat, lng, message) {
+        const marker = L.marker([lat, lng]).addTo(this.map);
+        marker.bindPopup(message);
+    }
+
+    loadMarkersFromJson(url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(marker => {
+                    this.addMarker(marker.latitude, marker.longitude, marker.message);
+                });
+            })
+            .catch(error => console.error('Error loading markers:', error));
+    }
+}
+
+const myMap = new LeafletMap('map', [8.360004, 124.868419], 18);
+
+
+myMap.addMarker(8.367389, 124.864161, 'Manolo Fortich police Station');
+myMap.addMarker(8.367373,124.864644, 'Postal bank');
+myMap.addMarker(8.367561,124.863478, 'Rural bank');
+
+myMap.loadMarkersFromJson('applet-2.json');
+
+</script>
 </body>
+<script>
+
+</script>
 </html>
