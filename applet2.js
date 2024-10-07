@@ -32,7 +32,7 @@ const myMap = new LeafletMap('map', [8.360004, 124.868419], 18);
 
 myMap.addMarker(8.367389, 124.864161, 'Manolo Fortich police Station');
 myMap.addMarker(8.367373,124.864644, 'Postal bank');
-myMap.addMarker(8.359554,124.869153, 'CCS Laboratory 2');
+myMap.addMarker(8.367561,124.863478, 'Rural bank');
 
 
 myMap.loadMarkersFromJson('applet-2.json');

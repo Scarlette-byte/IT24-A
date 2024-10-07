@@ -9,5 +9,10 @@
         "longitude": 124.864644,
         "message": "Postal bank"
         
+    },
+    {
+        "latitude": 8.367561,
+        "longitude":124.863478,
+        "message": "Rural bank"
     }
 ]
