@@ -22,7 +22,13 @@ class DataLogger{
     displayLogCount(){
         const logCount = this.countlogs();
         this.logCountElement.innerHTML = `<p>Total Logs: ${logCount}</p>`;
+
+        
+document.addEventListener('DOMContentLoaded', () => {
+    new DataLogger('logButton', 'idContainer', 'clearButton', 'logCount'); 
+    });
     }
+    
 }
 updateCardContainer()
 
